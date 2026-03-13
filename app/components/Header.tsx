@@ -4,9 +4,22 @@ import { useState } from "react"
 
 const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false)
+
+  const toggleTheme = () => {
+    const html = document.documentElement
+
+    if (html.dataset.theme === "light") {
+      html.dataset.theme = "dark"
+      setIsDarkMode(true)
+    } else {
+      html.dataset.theme = "light"
+      setIsDarkMode(false)
+    }
+    console.log(isDarkMode)
+  }
   
   return (
-    <header className=" text-white p-4">
+    <header className=" text-white p-4 border border-[var(--border-color)] rounded-lg mb-4">
       <div className="container mx-auto flex gap-1 items-center justify-between">
         <div className="flex gap-2 items-center">
           <CircleDollarSign/>
@@ -14,7 +27,7 @@ const Header = () => {
         </div>
 
         <div className="flex gap-2 items-center">
-            <button className="p-2 rounded-md bg-[var(--bg-secondary)] text-[var(--text-primary)] cursor-pointer" onClick={() => setIsDarkMode(!isDarkMode)}>
+            <button className="p-2 rounded-md bg-[var(--bg-secondary)] text-[var(--text-primary)] cursor-pointer" onClick={toggleTheme}>
                 {isDarkMode ? <Moon/> : <Sun/>}
             </button>
             <div className="relative">

@@ -28,6 +28,46 @@
 
 }
 
+[data-theme="light"] {
+
+  /* BACKGROUND */
+
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #E5E7EB;
+  --bg-tertiary: #D1D5DB;
+  --bg-card: #FFFFFF;
+
+  /* TEXT */
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #6B7280;
+
+  /* ACCENT */
+
+  --accent-primary: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-soft: #DBEAFE;
+
+  /* MARKET */
+
+  --profit: #16A34A;
+  --profit-soft: #DCFCE7;
+
+  --loss: #DC2626;
+  --loss-soft: #FEE2E2;
+
+  /* BORDERS */
+
+  --border-primary: #E5E7EB;
+  --border-secondary: #CBD5F5;
+
+  /* UI */
+
+  --shadow-card: rgba(0,0,0,0.08);
+
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
