@@ -18,7 +18,7 @@ const [selectedCoin, setSelectedCoin] = useState<any>(null)
   
   return (
     <div className="bg-[var(--bg-primary)] font-sans p-4">
-      <Header />
+      <Header onSelectCoin={setSelectedCoin} />
       <main className="space-y-4">
         {/* Top Cryptos */}
         <TopCryptos />

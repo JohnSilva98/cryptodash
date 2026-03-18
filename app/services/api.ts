@@ -97,3 +97,68 @@ export async function getCoinChart(coinId: string, days: number) {
   }
 
 }
+
+export async function searchCoins(query: string) {
+  if (!query || query.length < 2) return []
+  
+  const res = await fetch(
+    `${BASE_URL}/search?query=${encodeURIComponent(query)}`
+  )
+
+  const data = await res.json()
+  
+  // Retorna apenas as primeiras 5 moedas que têm dados de mercado
+  const coins = data.coins.slice(0, 5)
+  
+  // Busca dados adicionais para cada moeda encontrada
+  const coinsWithData = await Promise.all(
+    coins.map(async (coin: any) => {
+      try {
+        const marketData = await fetchAPI(
+          `/coins/markets?vs_currency=usd&ids=${coin.id}&sparkline=false`
+        )
+        const market = marketData[0]
+        
+        if (market) {
+          return {
+            id: coin.id,
+            name: coin.name,
+            symbol: coin.symbol.toUpperCase(),
+            image: coin.large,
+            price: market.current_price,
+            change: market.price_change_percentage_24h,
+            marketCap: market.market_cap,
+            volume: market.total_volume,
+            supply: market.circulating_supply
+          }
+        }
+        
+        return {
+          id: coin.id,
+          name: coin.name,
+          symbol: coin.symbol.toUpperCase(),
+          image: coin.large,
+          price: 0,
+          change: 0,
+          marketCap: 0,
+          volume: 0,
+          supply: 0
+        }
+      } catch {
+        return {
+          id: coin.id,
+          name: coin.name,
+          symbol: coin.symbol.toUpperCase(),
+          image: coin.large,
+          price: 0,
+          change: 0,
+          marketCap: 0,
+          volume: 0,
+          supply: 0
+        }
+      }
+    })
+  )
+  
+  return coinsWithData
+}
