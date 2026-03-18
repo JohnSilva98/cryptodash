@@ -49,7 +49,10 @@ useEffect(() => {
     useEffect(() => {
         async function load(){
             const overview = await getMarketChart()
-            const chart = generateChartData(overview.marketCap)
+            const chart = Array.from({ length: 20 }, (_, i) => ({
+  time: `${i}:00`,
+  marketCap: overview.marketCap + (Math.random() - 0.5) * 50000000000
+}))
             setData(chart)
         }
         load()
@@ -72,7 +75,7 @@ useEffect(() => {
         <LineChart data={data}>
           <XAxis dataKey="time" />
 
-          <YAxis domain={['dataMin - 10000', 'dataMax + 10000']}
+          <YAxis domain={['auto', 'auto']}
            tickFormatter={(value) => `$${formatNumber(value)}`} />
 
           <Tooltip
@@ -112,7 +115,7 @@ useEffect(() => {
 
       <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2">
         <p className="text-gray-400">BTC Dominance</p>
-        <p className="text-xl font-bold"> ${globalData ? formatNumber(globalData.marketCap) : "--"}</p>
+        <p className="text-xl font-bold"> {globalData ? globalData.btcDominance.toFixed(1) + "%" : "--"}</p>
       </div>
     </div>
 
