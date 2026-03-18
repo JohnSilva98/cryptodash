@@ -14,7 +14,7 @@ import {
   ResponsiveContainer
 } from "recharts"
 
-export default function MarketCap() {
+export default function MarketCap({ className = "" }: any) {
 
   function formatNumber(num: number) {
   if (num >= 1_000_000_000_000) {
@@ -59,7 +59,7 @@ useEffect(() => {
     }, [])
 
     return (
-   <div className="w-[72vw] h-80 border border-[var(--border-color)] rounded-lg p-4 mt-2 flex flex-col">
+   <div className={`w-[72vw] h-80 border border-[var(--border-color)] rounded-lg p-4 mt-2 flex flex-col ${className}`}>
 
   {/* HEADER */}
   <h1 className="text-2xl font-bold text-[var(--text-primary)] border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2 mb-2">

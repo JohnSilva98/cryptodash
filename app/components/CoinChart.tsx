@@ -57,7 +57,7 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
   if (!coin) return null
 
   return (
-    <div className="w-[72vw] mt-4 border border-[var(--border-color)] rounded-lg p-4">
+    <div className="w-[72vw] mt-4 border border-[var(--border-color)] rounded-lg p-4 ">
 
       {/* HEADER */}
       <div className="flex items-center gap-3 mb-4">

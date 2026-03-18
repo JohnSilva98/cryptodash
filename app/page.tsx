@@ -25,7 +25,7 @@ const [selectedCoin, setSelectedCoin] = useState<any>(null)
         {/* market cap */}
         <MarketCap />
         {/* criptos price */}
-        <CryptosPrice onSelect={setSelectedCoin} />
+        <CryptosPrice  onSelect={setSelectedCoin} />
         {/* coin chart */}
         <CoinChart coin={selectedCoin} />
       </main>
