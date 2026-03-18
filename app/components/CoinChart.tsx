@@ -28,7 +28,8 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
 
   const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
-  const [timeRange, setTimeRange] = useState('1D')
+  const [days, setDays] = useState(1)
+
 
   function formatNumber(num: number) { 
     //formatador de numeros
@@ -49,7 +50,7 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
       setLoading(true)
 
       try {
-        const chartData = await getCoinChart(coin.id)
+        const chartData = await getCoinChart(coin.id, days)
         console.log("Dados da API:", chartData)
         const chart = generateChartData(chartData.prices)
         console.log("Dados processados:", chart)
@@ -62,7 +63,7 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
     }
 
     load()
-  }, [coin])
+  }, [coin, days])
 
   if (!coin) return null
 
@@ -113,14 +114,14 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
         {['1D', '7D', '1M', '1Y'].map((range) => (
           <button
             key={range}
-            onClick={() => setTimeRange(range)}
+            onClick={() => setDays(range)}
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-              timeRange === range
+              days === range
                 ? 'bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            {range}
+            {range === '1D' ? '1D' : range === '7D' ? '7D' : range === '1M' ? '1M' : '1Y'}
           </button>
         ))}
       </div>

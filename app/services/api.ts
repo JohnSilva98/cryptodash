@@ -84,9 +84,9 @@ export async function getTopCoins() {
   }))
 }
 
-export async function getCoinChart(coinId: string) {
+export async function getCoinChart(coinId: string, days: number) {
   const res = await fetch(
-    `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=1`
+    `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`
   )
 
   const data = await res.json()
