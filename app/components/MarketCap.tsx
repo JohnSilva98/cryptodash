@@ -59,7 +59,7 @@ useEffect(() => {
     }, [])
 
     return (
-   <div className={`w-[72vw] h-80 border border-[var(--border-color)] rounded-lg p-4 mt-2 flex flex-col ${className}`}>
+   <div className={`w-full h-80 border border-[var(--border-color)] rounded-lg p-4 mt-2 flex flex-col ${className}`}>
 
   {/* HEADER */}
   <h1 className="text-2xl font-bold text-[var(--text-primary)] border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2 mb-2">
@@ -70,7 +70,7 @@ useEffect(() => {
   <div className="flex flex-row flex-1 space-x-4">
 
     {/* GRÁFICO */}
-    <div className="w-[85%] h-full">
+    <div className="flex-1 h-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <XAxis dataKey="time" />
@@ -102,7 +102,7 @@ useEffect(() => {
     </div>
 
     {/* SIDEBAR */}
-    <div className="flex flex-col gap-4 text-white w-[15%]">
+    <div className="flex flex-col gap-4 text-white w-1/4">
       <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2">
         <p className="text-gray-400">Market Cap</p>
         <p className="text-xl font-bold"> ${globalData ? formatNumber(globalData.marketCap) : "--"}</p>

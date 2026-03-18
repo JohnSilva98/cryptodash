@@ -65,7 +65,15 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
     load()
   }, [coin, days])
 
-  if (!coin) return null
+  if (!coin) {
+    return (
+      <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-4 h-full min-h-[400px] flex items-center justify-center">
+        <p className="text-[var(--text-secondary)] text-center">
+          Selecione uma criptomoeda<br/>para ver os detalhes
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-4">

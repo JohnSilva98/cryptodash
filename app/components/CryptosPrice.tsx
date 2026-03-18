@@ -24,7 +24,7 @@ export default function CryptosPrice({ onSelect }: { onSelect: (coin: Coin) => v
   }, [])
 
   return (
-    <div className="w-[72vw] mt-4 border border-[var(--border-color)] rounded-xl p-4 bg-gradient-to-r from-slate-900 to-slate-800">
+    <div className="w-full h-fit mt-4 border border-[var(--border-color)] rounded-xl p-4 bg-gradient-to-r from-slate-900 to-slate-800">
 
       {/* HEADER */}
       <h2 className="text-xl font-bold mb-4 text-white">

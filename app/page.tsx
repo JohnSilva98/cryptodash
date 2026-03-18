@@ -19,22 +19,22 @@ const [selectedCoin, setSelectedCoin] = useState<any>(null)
   return (
     <div className="bg-[var(--bg-primary)] font-sans p-4">
       <Header />
-      <main className="grid grid-cols-4 gap-4">
-        {/* top criptos */}
-        <div className="col-span-4">
+      <main className="space-y-4">
+        {/* Top Cryptos */}
         <TopCryptos />
-        </div>
-        {/* market cap */}
-        <div className="col-span-1">
-        <MarketCap />
-        </div>
-        {/* criptos price */}
-        <div className="col-span-4">
-        <CryptosPrice  onSelect={setSelectedCoin} />
-        </div>
-        {/* coin chart */}
-        <div className="col-span-1">
-        <CoinChart coin={selectedCoin} />
+        
+        {/* Main Content - 3 columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Left Column (2/3 width) - Market Overview */}
+          <div className="lg:col-span-2 space-y-4">
+            <MarketCap />
+            <CryptosPrice onSelect={setSelectedCoin} />
+          </div>
+          
+          {/* Right Column (1/3 width) - Coin Details */}
+          <div className="lg:col-span-1">
+            <CoinChart coin={selectedCoin} />
+          </div>
         </div>
       </main>
     </div>
