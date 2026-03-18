@@ -2,11 +2,13 @@
 import Header from "./components/Header";
 import { TopCryptos } from "./components/TopCryptos";
 import MarketCap from "./components/MarketCap"; 
+import CryptosPrice from "./components/CryptosPrice";
+import { useState } from "react";
 
 export default function Home() {
 
   
-
+const [selectedCoin, setSelectedCoin] = useState<any>(null)
  
 
   
@@ -21,6 +23,8 @@ export default function Home() {
         <TopCryptos />
         {/* market cap */}
         <MarketCap />
+        {/* criptos price */}
+        <CryptosPrice onSelect={setSelectedCoin} />
       </main>
     </div>
   );

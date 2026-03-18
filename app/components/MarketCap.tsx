@@ -72,20 +72,27 @@ useEffect(() => {
         <LineChart data={data}>
           <XAxis dataKey="time" />
 
-          <YAxis domain={['dataMin - 10000', 'dataMax + 10000']} />
+          <YAxis domain={['dataMin - 10000', 'dataMax + 10000']}
+           tickFormatter={(value) => `$${formatNumber(value)}`} />
 
           <Tooltip
             contentStyle={{ backgroundColor: "#020617", border: "none" }}
             labelStyle={{ color: "#94a3b8" }}
             cursor={{ stroke: "#475569", strokeWidth: 1 }}
           />
+          <defs>
+  <linearGradient id="colorMarket" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.8}/>
+    <stop offset="95%" stopColor="#22c55e" stopOpacity={0}/>
+  </linearGradient>
+</defs>
 
           <Line
             type="monotone"
             dataKey="marketCap"
             stroke="#22c55e"
             strokeWidth={3}
-            dot={false}
+            dot={true}
           />
         </LineChart>
       </ResponsiveContainer>
