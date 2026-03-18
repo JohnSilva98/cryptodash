@@ -4,6 +4,7 @@ import { TopCryptos } from "./components/TopCryptos";
 import MarketCap from "./components/MarketCap"; 
 import CryptosPrice from "./components/CryptosPrice";
 import { useState } from "react";
+import CoinChart from "./components/CoinChart";
 
 export default function Home() {
 
@@ -25,6 +26,8 @@ const [selectedCoin, setSelectedCoin] = useState<any>(null)
         <MarketCap />
         {/* criptos price */}
         <CryptosPrice onSelect={setSelectedCoin} />
+        {/* coin chart */}
+        <CoinChart coin={selectedCoin} />
       </main>
     </div>
   );
