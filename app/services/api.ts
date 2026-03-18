@@ -38,23 +38,15 @@ export async function getMarketChart() {
  
 }
 
-export function generateChartData(currentMarketCap: number) {
-
-  const data = []
-
-  for (let i = 6; i >= 0; i--) {
-
-    const variation = (Math.random() - 0.5) * 0.05
-
-    data.push({
-      time: `${7 - i}D`,
-      marketCap: currentMarketCap * (1 + variation)
-    })
-  }
-
-  return data
+export function generateChartData(data: [number, number][]) {
+  return data.map(([timestamp, price]) => ({
+    time: new Date(timestamp).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    }),
+    marketCap: price
+  }))
 }
-
 export async function getGlobalData() {
   const res = await fetch("https://api.coingecko.com/api/v3/global")
   const data = await res.json()
@@ -70,10 +62,11 @@ export async function getGlobalData() {
 
 export async function getTopCoins() {
   const res = await fetch(
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1"
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1"
   )
 
   const data = await res.json()
+  console.log(data)
 
   return data.map((coin: any) => ({
     id: coin.id,
@@ -83,4 +76,14 @@ export async function getTopCoins() {
     change: coin.price_change_percentage_24h,
     image: coin.image
   }))
+}
+
+export async function getCoinChart(coinId: string) {
+  const res = await fetch(
+    `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=1`
+  )
+
+  const data = await res.json()
+
+  return data.prices // [[timestamp, price]]
 }
