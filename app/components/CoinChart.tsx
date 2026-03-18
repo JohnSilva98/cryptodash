@@ -19,17 +19,25 @@ type Coin = {
   price: number
   change: number
   image: string
+  volume: number
+  marketCap: number
+  supply: number
 }
 
 export default function CoinChart({ coin }: { coin: Coin | null }) {
 
   const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  const [timeRange, setTimeRange] = useState('1D')
 
   function formatNumber(num: number) { 
     //formatador de numeros
+     if (num >= 1_000_000_000_000) return (num / 1_000_000_000_000).toFixed(1) + "T"
+  
     if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(2) + "B"
     if (num >= 1_000_000) return (num / 1_000_000).toFixed(2) + "M"
+    if (num >= 1_000) return (num / 1_000).toFixed(2) + "K"
+
     return num.toFixed(2)
   }
 
@@ -41,8 +49,10 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
       setLoading(true)
 
       try {
-        const prices = await getCoinChart(coin.id)
-        const chart = generateChartData(prices)
+        const chartData = await getCoinChart(coin.id)
+        console.log("Dados da API:", chartData)
+        const chart = generateChartData(chartData.prices)
+        console.log("Dados processados:", chart)
         setData(chart)
       } catch (err) {
         console.error("Erro ao carregar gráfico", err)
@@ -57,31 +67,68 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
   if (!coin) return null
 
   return (
-    <div className="w-[72vw] mt-4 border border-[var(--border-color)] rounded-lg p-4 ">
+    <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-4">
 
       {/* HEADER */}
-      <div className="flex items-center gap-3 mb-4">
-        <img src={coin.image} alt={coin.name} className="w-8 h-8" />
-        <h2 className="text-xl font-bold text-white">
-          {coin.name} ({coin.symbol})
-        </h2>
+      <div className="flex items-center gap-3 mb-6">
+        <img src={coin.image} alt={coin.name} className="w-10 h-10" />
+        <div className="flex flex-row gap-2 justify-between items-center">
+          <h2 className="text-xl font-bold text-[var(--text-primary)]">
+            {coin.name}
+          </h2>
+          <p className="text-sm text-[var(--text-secondary)]">{coin.symbol.toUpperCase()}</p>
+        </div>
       </div>
 
-      {/* INFO */}
-      <div className="flex gap-6 mb-4 text-sm text-gray-400">
-        <p>Preço: <span className="text-white">${formatNumber(coin.price)}</span></p>
-        <p>
-          24h:
-          <span className={coin.change >= 0 ? "text-green-500" : "text-red-500"}>
-            {coin.change.toFixed(2)}%
+      {/* COIN DETAILS */}
+      <div className="space-y-4 mb-6">
+        <div className="flex justify-between items-center">
+          <span className="text-[var(--text-secondary)]">Current Price</span>
+          <span className="font-semibold text-[var(--text-primary)]">
+            ${formatNumber(coin.price)}
           </span>
-        </p>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-[var(--text-secondary)]">Market Cap</span>
+          <span className="font-semibold text-[var(--text-primary)]">
+             ${formatNumber(coin.marketCap)}
+          </span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-[var(--text-secondary)]">24h Volume</span>
+          <span className="font-semibold text-[var(--text-primary)]">
+            ${formatNumber(coin.volume)}
+          </span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-[var(--text-secondary)]">Circulating Supply</span>
+          <span className="font-semibold text-[var(--text-primary)]">
+            ${formatNumber(coin.supply)}
+          </span>
+        </div>
       </div>
 
-      {/* GRÁFICO */}
-      <div className="h-72">
+      {/* TIME RANGE BUTTONS */}
+      <div className="flex gap-2 mb-4">
+        {['1D', '7D', '1M', '1Y'].map((range) => (
+          <button
+            key={range}
+            onClick={() => setTimeRange(range)}
+            className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+              timeRange === range
+                ? 'bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            {range}
+          </button>
+        ))}
+      </div>
+
+      {/* CHART */}
+      <div className="h-48">
         {loading ? (
-          <p className="text-gray-400">Carregando gráfico...</p>
+          <p className="text-[var(--text-secondary)] text-center">Loading chart...</p>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
@@ -90,18 +137,24 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
               <YAxis
                 domain={['auto', 'auto']}
                 tickFormatter={(value) => `$${formatNumber(value)}`}
+                tick={{ fill: 'var(--text-secondary)', fontSize: 10 }}
               />
 
               <Tooltip
-                contentStyle={{ backgroundColor: "#020617", border: "none" }}
-                labelStyle={{ color: "#94a3b8" }}
+                contentStyle={{ 
+                  backgroundColor: "var(--bg-secondary)", 
+                  border: "1px solid var(--border-color)",
+                  borderRadius: '8px'
+                }}
+                labelStyle={{ color: "var(--text-secondary)" }}
+                itemStyle={{ color: "var(--text-primary)" }}
               />
 
               <Line
                 type="monotone"
                 dataKey="marketCap"
                 stroke={coin.change >= 0 ? "#22c55e" : "#ef4444"}
-                strokeWidth={3}
+                strokeWidth={2}
                 dot={false}
               />
             </LineChart>

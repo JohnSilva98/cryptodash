@@ -44,7 +44,10 @@ export function generateChartData(data: [number, number][]) {
       hour: '2-digit',
       minute: '2-digit'
     }),
-    marketCap: price
+    marketCap: price,
+    price: price,
+    price_change_percentage_24h: 0,
+    circulating_supply: 0
   }))
 }
 export async function getGlobalData() {
@@ -74,7 +77,10 @@ export async function getTopCoins() {
     symbol: coin.symbol.toUpperCase(),
     price: coin.current_price,
     change: coin.price_change_percentage_24h,
-    image: coin.image
+    image: coin.image,
+    volume: coin.total_volume,
+    marketCap: coin.market_cap,
+    supply: coin.circulating_supply
   }))
 }
 
@@ -85,5 +91,9 @@ export async function getCoinChart(coinId: string) {
 
   const data = await res.json()
 
-  return data.prices // [[timestamp, price]]
+  return {
+    prices: data.prices, // [[timestamp, price]]
+    total_volume: data.total_volume
+  }
+
 }
