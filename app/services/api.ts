@@ -80,6 +80,7 @@ export async function getTopCoins() {
     name: coin.name,
     symbol: coin.symbol.toUpperCase(),
     price: coin.current_price,
-    change: coin.price_change_percentage_24h
+    change: coin.price_change_percentage_24h,
+    image: coin.image
   }))
 }
