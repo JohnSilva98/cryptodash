@@ -25,6 +25,7 @@
   /* borders */
 
   --border: #334155;
+  --border-color: #334155;
 
 }
 
@@ -45,6 +46,7 @@
 
   /* ACCENT */
 
+  --accent: #2563EB;
   --accent-primary: #2563EB;
   --accent-hover: #1D4ED8;
   --accent-soft: #DBEAFE;
@@ -59,8 +61,10 @@
 
   /* BORDERS */
 
+  --border: #E5E7EB;
+  --border-color: #E5E7EB;
   --border-primary: #E5E7EB;
-  --border-secondary: #CBD5F5;
+  --border-secondary: #CBD5E1;
 
   /* UI */
 
@@ -85,7 +89,7 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
 }

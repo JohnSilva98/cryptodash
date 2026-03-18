@@ -25,15 +25,15 @@ export function TopCryptos() {
                 <div key={coin.id} className="p-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)]  hover:scale-[1.02] transition cursor-pointer">
                   <div className="flex items-center gap-2">
                     <img src={coin.image} alt={coin.name} className="w-10 h-10" />
-                    <p>{coin.symbol.toUpperCase()}</p>
+                    <p className="text-[var(--text-primary)] font-semibold">{coin.symbol.toUpperCase()}</p>
                   </div>
                   
-                  <p>{formatCurrency(coin.current_price)}</p>
+                  <p className="text-[var(--text-primary)] font-bold">{formatCurrency(coin.current_price)}</p>
                   <p
             className={
               coin.price_change_percentage_24h > 0
-                ? "text-green-500"
-                : "text-red-500"
+                ? "text-[var(--profit)]"
+                : "text-[var(--loss)]"
             }
           >
             {coin.price_change_percentage_24h.toFixed(2)}%

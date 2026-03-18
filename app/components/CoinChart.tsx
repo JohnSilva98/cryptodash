@@ -119,17 +119,22 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
 
       {/* TIME RANGE BUTTONS */}
       <div className="flex gap-2 mb-4">
-        {['1D', '7D', '1M', '1Y'].map((range) => (
+        {[
+          { label: '1D', value: 1 },
+          { label: '7D', value: 7 },
+          { label: '1M', value: 30 },
+          { label: '1Y', value: 365 }
+        ].map((range) => (
           <button
-            key={range}
-            onClick={() => setDays(range)}
+            key={range.label}
+            onClick={() => setDays(range.value)}
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-              days === range
+              days === range.value
                 ? 'bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            {range === '1D' ? '1D' : range === '7D' ? '7D' : range === '1M' ? '1M' : '1Y'}
+            {range.label}
           </button>
         ))}
       </div>
@@ -162,7 +167,7 @@ export default function CoinChart({ coin }: { coin: Coin | null }) {
               <Line
                 type="monotone"
                 dataKey="marketCap"
-                stroke={coin.change >= 0 ? "#22c55e" : "#ef4444"}
+                stroke={coin.change >= 0 ? "var(--profit)" : "var(--loss)"}
                 strokeWidth={2}
                 dot={false}
               />

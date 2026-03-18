@@ -19,10 +19,10 @@ const Header = () => {
   }
   
   return (
-    <header className=" text-white p-4 border border-[var(--border-color)] rounded-lg mb-4">
+    <header className="p-4 border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg mb-4">
       <div className="container mx-auto flex gap-1 items-center justify-between">
         <div className="flex gap-2 items-center">
-          <CircleDollarSign/>
+          <CircleDollarSign className="text-[var(--text-primary)]"/>
           <h1 className="text-2xl font-bold text-[var(--text-primary)]">CryptoDash</h1>
         </div>
 

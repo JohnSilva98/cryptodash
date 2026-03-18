@@ -79,9 +79,9 @@ useEffect(() => {
            tickFormatter={(value) => `$${formatNumber(value)}`} />
 
           <Tooltip
-            contentStyle={{ backgroundColor: "#020617", border: "none" }}
-            labelStyle={{ color: "#94a3b8" }}
-            cursor={{ stroke: "#475569", strokeWidth: 1 }}
+            contentStyle={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)" }}
+            labelStyle={{ color: "var(--text-secondary)" }}
+            cursor={{ stroke: "var(--border-color)", strokeWidth: 1 }}
           />
           <defs>
   <linearGradient id="colorMarket" x1="0" y1="0" x2="0" y2="1">
@@ -93,7 +93,7 @@ useEffect(() => {
           <Line
             type="monotone"
             dataKey="marketCap"
-            stroke="#22c55e"
+            stroke="var(--profit)"
             strokeWidth={3}
             dot={true}
           />
@@ -102,19 +102,19 @@ useEffect(() => {
     </div>
 
     {/* SIDEBAR */}
-    <div className="flex flex-col gap-4 text-white w-1/4">
+    <div className="flex flex-col gap-4 text-[var(--text-primary)] w-1/4">
       <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2">
-        <p className="text-gray-400">Market Cap</p>
+        <p className="text-[var(--text-secondary)]">Market Cap</p>
         <p className="text-xl font-bold"> ${globalData ? formatNumber(globalData.marketCap) : "--"}</p>
       </div>
 
       <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2">
-        <p className="text-gray-400">24h Volume</p>
+        <p className="text-[var(--text-secondary)]">24h Volume</p>
         <p className="text-xl font-bold"> ${globalData ? formatNumber(globalData.volume) : "--"}</p>
       </div>
 
       <div className="border border-[var(--border-color)] bg-[var(--bg-secondary)] rounded-lg p-2">
-        <p className="text-gray-400">BTC Dominance</p>
+        <p className="text-[var(--text-secondary)]">BTC Dominance</p>
         <p className="text-xl font-bold"> {globalData ? globalData.btcDominance.toFixed(1) + "%" : "--"}</p>
       </div>
     </div>
