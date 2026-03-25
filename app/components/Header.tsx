@@ -2,12 +2,14 @@
 import { CircleDollarSign, Sun, Moon, Search } from "lucide-react"
 import { useState } from "react"
 
-const Header = ({ onSelectCoin }: HeaderProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(false)
-
   type HeaderProps = {
   onSelectCoin: (coin: any) => void
 }
+
+const Header = ({ onSelectCoin }: HeaderProps) => {
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+
 
   const toggleTheme = () => {
     const html = document.documentElement
