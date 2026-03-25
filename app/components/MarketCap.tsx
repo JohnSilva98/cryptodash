@@ -44,7 +44,12 @@ useEffect(() => {
   load()
 }, [])
     
-    const [data, setData] = useState([])
+   type MarketCapData = {
+  time: string
+  marketCap: number
+}
+
+const [data, setData] = useState<MarketCapData[]>([])
 
     useEffect(() => {
         async function load(){
